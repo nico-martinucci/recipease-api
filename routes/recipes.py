@@ -1,4 +1,5 @@
-from flask import Blueprint
+from flask import Blueprint, jsonify
+from models import db, Meal
 
 recipes = Blueprint("recipes", __name__)
 
@@ -7,4 +8,8 @@ recipes = Blueprint("recipes", __name__)
 
 @recipes.route("/")
 def get_recipes():
-    return {"message": "recipes!"}
+
+    meals = Meal.query.all()
+    serial_meals = [meal.serialize() for meal in meals]
+
+    return jsonify({"meals": serial_meals})
