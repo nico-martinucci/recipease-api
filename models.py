@@ -31,15 +31,15 @@ class Recipes(db.Model):
     __tablename__ = "recipes"
 
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.Text, nullabe=False)
+    name = db.Column(db.Text, nullable=False)
     user_username = db.Column(db.Text, db.ForeignKey("users.username"))
-    meal_name = db.Column(db.Text, db.ForeignKey("meals.name"), nullabe=False)
+    meal_name = db.Column(db.Text, db.ForeignKey("meals.name"), nullable=False)
     type_name = db.Column(
         db.Text,
-        db.ForeignKey("recipes_types.name"),
-        nullabe=False
+        db.ForeignKey("recipe_types.name"),
+        nullable=False
     )
-    private = db.Column(db.Boolean, nullabe=False)
+    private = db.Column(db.Boolean, nullable=False)
     photo_url = db.Column(db.Text)
 
     created_by = db.relationship("User", backref="recipes")
@@ -137,7 +137,7 @@ class RecipeIngredientSearch(db.Model):
         nullable=False
     )
     ingredient_name = db.Column(
-        db.Integer,
+        db.Text,
         db.ForeignKey("ingredients.name"),
         nullable=False
     )
