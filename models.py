@@ -21,13 +21,13 @@ class User(db.Model):
     bio = db.Column(db.Text)
 
     recipe_activity = db.relationship(
-        "Recipes",
+        "Recipe",
         secondary="users_recipes",
         backref="user_activity"
     )
 
 
-class Recipes(db.Model):
+class Recipe(db.Model):
     __tablename__ = "recipes"
 
     id = db.Column(db.Integer, primary_key=True)
@@ -66,8 +66,8 @@ class RecipeItem(db.Model):
     )
     description = db.Column(db.Text)
 
-    recipe = db.relationship("Recipes", backref="items")
-    unit = db.relationship("Units")
+    recipe = db.relationship("Recipe", backref="items")
+    unit = db.relationship("Unit")
     ingredient_detail = db.relationship("Ingredient", backref="uses")
 
 
@@ -83,7 +83,7 @@ class RecipeStep(db.Model):
     order = db.Column(db.Integer, nullable=False)
     description = db.Column(db.Text, nullable=False)
 
-    recipe = db.relationship("Recipes", backref="steps")
+    recipe = db.relationship("Recipe", backref="steps")
 
 
 class RecipeComment(db.Model):
@@ -164,7 +164,7 @@ class Ingredient(db.Model):
 
     category_detail = db.relationship(
         "IngredientCategory", backref="ingredients")
-    recipes = db.relationship("Recipe")
+    recipes = db.relationship("RecipeItem")
 
 
 class IngredientCategory(db.Model):
