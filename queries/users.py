@@ -71,3 +71,24 @@ def authenticate_current_user(username, password):
         return {"token": token.get_jwt(username)}
 
     return {"error": "Username not found. Please try again."}
+
+
+def get_users(filter):
+    """
+    Queries and returns a list of all users, optionally filtered by the data
+    passed to the function.
+    """
+    filter_term = "%{}%".format(filter)
+    users = User.query.filter(User.username.ilike(filter_term)).all()
+
+    serialized = [
+        {
+            "username": user.username,
+            "first_name": user.first_name,
+            "last_name": user.last_name,
+            "photo_url": user.photo_url
+        }
+        for user in users
+    ]
+
+    return {"users": serialized}
