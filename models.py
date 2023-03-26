@@ -32,6 +32,7 @@ class Recipe(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.Text, nullable=False)
+    description = db.Column(db.Text, nullable=False)
     user_username = db.Column(db.Text, db.ForeignKey("users.username"))
     meal_name = db.Column(db.Text, db.ForeignKey("meals.name"), nullable=False)
     type_name = db.Column(

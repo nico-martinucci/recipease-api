@@ -4,7 +4,7 @@ import queries.users as q
 users = Blueprint("users", __name__)
 
 
-@users.route("/signup", methods=["POST"])
+@users.post("/signup")
 def signup_user():
     """Registers a new user."""
 
@@ -20,7 +20,7 @@ def signup_user():
     return jsonify(new_user)
 
 
-@users.route("/login", methods=["POST"])
+@users.post("/login")
 def login_user():
     """Authenticates an existing user."""
 
@@ -32,27 +32,22 @@ def login_user():
     return jsonify(auth_user)
 
 
-@users.route("/<username>/photo", methods=["POST"])
+@users.post("/<username>/photo")
 def add_user_photo(username):
     """Adds a new photo for the provided user."""
     # TODO: add after figuring out S3 bucket stuff
 
 
-@users.route("/", methods=["GET"])
+@users.get("/")
 def get_users():
     """Returns list of all users, optionally filtered by username"""
 
-    filter = ""
-
-    if "filter" in request.args:
-        filter = request.args["filter"]
-
-    users = q.get_users(filter)
+    users = q.get_users(request.args.get("filter", ""))
 
     return jsonify(users)
 
 
-@users.route("/<username>", methods=["GET"])
+@users.get("/<username>")
 def get_user_detail(username):
     """Returns detail for specific user."""
 
