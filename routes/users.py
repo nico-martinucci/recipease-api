@@ -32,8 +32,8 @@ def login_user():
     return jsonify(auth_user)
 
 
-@users.route("/photo/<int:user_id>", methods=["POST"])
-def add_user_photo(user_id):
+@users.route("/<username>/photo", methods=["POST"])
+def add_user_photo(username):
     """Adds a new photo for the provided user."""
     # TODO: add after figuring out S3 bucket stuff
 
@@ -50,3 +50,12 @@ def get_users():
     users = q.get_users(filter)
 
     return jsonify(users)
+
+
+@users.route("/<username>", methods=["GET"])
+def get_user_detail(username):
+    """Returns detail for specific user."""
+
+    user = q.get_user(username)
+
+    return jsonify(user)

@@ -78,6 +78,7 @@ def get_users(filter):
     Queries and returns a list of all users, optionally filtered by the data
     passed to the function.
     """
+
     filter_term = "%{}%".format(filter)
     users = User.query.filter(User.username.ilike(filter_term)).all()
 
@@ -92,3 +93,34 @@ def get_users(filter):
     ]
 
     return {"users": serialized}
+
+
+def get_user(username):
+    """
+    Queries and returns the full data for a particular user, including their
+    posted recipes.
+    """
+
+    user = User.query.get(username)
+
+    if not user:
+        return {"error": "Invalid username. Please try again."}
+
+    # TODO: flesh this out once there are routes to add recipes
+    serialize_recipes = [
+        {
+            recipe.name
+        }
+        for recipe in user.recipes
+    ]
+
+    serialize_user = {
+        "username": user.username,
+        "first_name": user.first_name,
+        "last_name": user.last_name,
+        "photo_url": user.photo_url,
+        "bio": user.bio,
+        "recipes": serialize_recipes
+    }
+
+    return {"user": serialize_user}
