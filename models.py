@@ -20,12 +20,6 @@ class User(db.Model):
     photo_url = db.Column(db.Text)
     bio = db.Column(db.Text)
 
-    recipe_activity = db.relationship(
-        "Recipe",
-        secondary="users_recipes",
-        backref="user_activity"
-    )
-
 
 class Recipe(db.Model):
     __tablename__ = "recipes"
@@ -41,6 +35,7 @@ class Recipe(db.Model):
         nullable=False
     )
     private = db.Column(db.Boolean, nullable=False)
+    rating = db.Column(db.Integer)
     photo_url = db.Column(db.Text)
 
     created_by = db.relationship("User", backref="recipes")
@@ -126,6 +121,9 @@ class UserRecipe(db.Model):
     is_starred = db.Column(db.Boolean)
     is_made = db.Column(db.Boolean)
     rating = db.Column(db.Text)
+
+    posted_by = db.relationship("User", backref="recipe_activity")
+    recipe = db.relationship("Recipe", backref="user_activity")
 
 
 class RecipeIngredientSearch(db.Model):

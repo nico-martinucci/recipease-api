@@ -6,12 +6,20 @@ recipes = Blueprint("recipes", __name__)
 
 @recipes.get("/")
 def get_recipes():
-    """"""
+    """
+    Returns a list of all recipes, optionally filtered by the provided criteria.
+    """
+
+    recipes = q.get_all_recipes()
+
+    return jsonify(recipes)
 
 
 @recipes.post("/")
 def add_recipe():
     """Adds a new recipe; Returns new recipe."""
+
+    # TODO: add authentication
 
     new_recipe = q.add_new_recipe(
         name=request.json["name"],

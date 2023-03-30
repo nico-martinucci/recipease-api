@@ -7,6 +7,23 @@ def get_all_recipes():
     information.
     """
 
+    recipes = Recipe.query.all()
+
+    serialized = [
+        {
+            "id": recipe.id,
+            "name": recipe.name,
+            "photo_url": recipe.photo_url,
+            "meal_name": recipe.meal_name,
+            "type_name": recipe.type_name,
+            "created_by": recipe.created_by.username,
+            "rating": recipe.user_activity.recipe_id
+        }
+        for recipe in recipes
+    ]
+
+    return {"recipes": serialized}
+
 
 def get_recipe():
     """Gets and returns a singular recipe, based on the provided id."""
