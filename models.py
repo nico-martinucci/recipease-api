@@ -120,7 +120,7 @@ class UserRecipe(db.Model):
     notes = db.Column(db.Text)
     is_starred = db.Column(db.Boolean)
     is_made = db.Column(db.Boolean)
-    rating = db.Column(db.Text)
+    rating = db.Column(db.Integer)
 
     posted_by = db.relationship("User", backref="recipe_activity")
     recipe = db.relationship("Recipe", backref="user_activity")
