@@ -2,6 +2,7 @@ from flask import Flask
 import os
 from routes.recipes import recipes
 from routes.users import users
+from routes.ratings import ratings
 from models import connect_db, db
 
 app = Flask(__name__)
@@ -17,3 +18,4 @@ db.create_all()
 
 app.register_blueprint(recipes, url_prefix="/api/recipes")
 app.register_blueprint(users, url_prefix="/api/users")
+app.register_blueprint(ratings, url_prefix="/api/ratings")
