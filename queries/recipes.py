@@ -17,7 +17,7 @@ def get_all_recipes():
             "meal_name": recipe.meal_name,
             "type_name": recipe.type_name,
             "created_by": recipe.created_by.username,
-            "rating": recipe.user_activity.recipe_id
+            "rating": recipe.rating
         }
         for recipe in recipes
     ]
