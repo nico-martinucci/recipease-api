@@ -32,7 +32,7 @@ def get_recipes():
 
     print(filters)
 
-    # TODO: figure out how to pass these to the function below. not sure the
+    # FIXME: figure out how to pass these to the function below. not sure the
     # best way to handle - some filters live on recipe, some live in
     # ingredients, and some are living on the recipe/user relationship.
 

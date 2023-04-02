@@ -1,6 +1,7 @@
 from flask import Blueprint, jsonify, request
 import queries.users as q
 
+
 users = Blueprint("users", __name__)
 
 
