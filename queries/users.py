@@ -68,9 +68,17 @@ def authenticate_current_user(username, password):
         if not is_auth:
             return {"error": "Invalid username/password combination. Please try again."}
 
-        return {"token": token.get_jwt(username)}
+        return {"token": token.get_jwt({"username": username})}
 
     return {"error": "Username not found. Please try again."}
+
+
+def set_user_as_valid(email):
+    """
+    Sets a user's is_verified to true; used for new user email verification.
+    """
+
+
 
 
 def get_users(filter):

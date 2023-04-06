@@ -1,5 +1,6 @@
 from flask import Blueprint, jsonify, request
 import queries.users as q
+from helpers import tokens as t, verification as v
 
 
 users = Blueprint("users", __name__)
@@ -9,14 +10,21 @@ users = Blueprint("users", __name__)
 def signup_user():
     """Registers a new user."""
 
+    email = request.json["email"]
+
     new_user = q.add_new_user(
         username=request.json["username"],
-        email=request.json["email"],
+        email=email,
         password=request.json["password"],
         first_name=request.json["firstName"],
         last_name=request.json["lastName"],
         bio=request.json["bio"],
     )
+
+    if "error" not in new_user:
+        hash = t.get_jwt({"email": email})
+        verification_link = "http://www.recipease.com/verify/" + hash
+        v.send_verification_email(email=email, link=verification_link)
 
     return jsonify(new_user)
 
@@ -31,6 +39,17 @@ def login_user():
     )
 
     return jsonify(auth_user)
+
+
+@users.post("/verify")
+def verify_user():
+    """Verifies a new user's e-mail address."""
+
+
+    # grab data from body of request
+    # send it off for verification...
+    #   if successful, write to the db to change is_verified to true
+    #   if unsuccesful, return an error
 
 
 @users.post("/<username>/photo")

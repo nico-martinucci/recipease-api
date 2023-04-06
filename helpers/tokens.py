@@ -1,14 +1,14 @@
-import os
+from os import environ
 import jwt
 from jwt.exceptions import InvalidSignatureError
 
 
-def get_jwt(username):
-    """Generates and returns a valid JWT."""
+def get_jwt(data):
+    """Accepts a dictionary of data and generates and returns a valid JWT."""
 
     new_jwt = jwt.encode(
-        {"username": username},
-        os.environ["SECRET_KEY"],
+        data,
+        environ.get("SECRET_KEY"),
         algorithm="HS256"
     )
 

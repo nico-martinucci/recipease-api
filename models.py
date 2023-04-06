@@ -17,6 +17,7 @@ class User(db.Model):
     password = db.Column(db.Text, nullable=False)
     first_name = db.Column(db.Text, nullable=False)
     last_name = db.Column(db.Text, nullable=False)
+    is_verified = db.Column(db.Boolean, nullable=False, default=False)
     photo_url = db.Column(db.Text)
     bio = db.Column(db.Text)
 

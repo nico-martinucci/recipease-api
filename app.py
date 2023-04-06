@@ -1,10 +1,13 @@
 from flask import Flask
-import os
+from os import environ
+from dotenv import load_dotenv
 from routes.recipes import recipes
 from routes.users import users
 from routes.ratings import ratings
 from routes.ingredients import ingredients
 from models import connect_db, db
+
+load_dotenv()
 
 app = Flask(__name__)
 
@@ -12,7 +15,7 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql:///recipease"
 app.config['SQLALCHEMY_ECHO'] = False
 app.config['DEBUG_TB_INTERCEPT_REDIRECTS'] = False
-app.config['SECRET_KEY'] = "SECREEEEEEEEEEEET"
+app.config['SECRET_KEY'] = environ.get("SECRET_KEY")
 
 connect_db(app)
 db.create_all()
