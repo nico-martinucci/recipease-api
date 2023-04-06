@@ -75,10 +75,17 @@ def authenticate_current_user(username, password):
 
 def set_user_as_valid(email):
     """
-    Sets a user's is_verified to true; used for new user email verification.
+    Sets a user's is_verified to true; used for new user email verification; 
+    Returns the user's username for querying of more user data.
     """
 
+    user = User.query.filter(User.email == email).one_or_none()
 
+    user.is_verified = True
+
+    db.session.commit()
+
+    return user.username
 
 
 def get_users(filter):

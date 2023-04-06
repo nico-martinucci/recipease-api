@@ -15,23 +15,23 @@ def get_jwt(data):
     return new_jwt
 
 
-# def verify_jwt(auth):
-#     """
-#     Takes in a JWT and authenticates it; throws an error if no token or
-#     invalid token.
-#     """
+def verify_jwt(token):
+    """
+    Takes in a JWT and authenticates it; throws an error if no token or
+    invalid token.
+    """
 
-#     token = auth.split()[1]
+    serialized = None
 
-#     try:
-#         user_auth = jwt.decode(
-#             token,
-#             os.environ['SECRET_KEY'],
-#             algorithms=["HS256"]
-#         )
-#     except InvalidSignatureError:
-#         serialized = {
-#             "error": "invalid token"
-#         }
+    try:
+        data = jwt.decode(
+            token,
+            environ.get("SECRET_KEY"),
+            algorithms=["HS256"]
+        )
 
-#         return jsonify(serialized)
+        serialized = data
+    except InvalidSignatureError:
+        serialized = {"error": "invalid token"}
+
+    return serialized

@@ -45,11 +45,17 @@ def login_user():
 def verify_user():
     """Verifies a new user's e-mail address."""
 
+    token = request.json["token"]
 
-    # grab data from body of request
-    # send it off for verification...
-    #   if successful, write to the db to change is_verified to true
-    #   if unsuccesful, return an error
+    data = t.verify_jwt(token)
+
+    if "error" in data:
+        return jsonify(data)
+
+    username = q.set_user_as_valid(data["email"])
+    user = q.get_user(username)
+
+    return jsonify(user)
 
 
 @users.post("/<username>/photo")
