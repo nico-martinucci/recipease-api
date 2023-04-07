@@ -11,8 +11,14 @@ def send_verification_email(email, link):
     em = EmailMessage()
     em["From"] = sender
     em["To"] = email
-    em["Subject"] = "test verification email"
-    em.set_content(link)
+    em["Subject"] = "Verify your e-mail"
+    em.set_content(
+       f"""
+        Thanks for you interest in recipeats! Please click the link below to verify your e-mail address:
+
+        {link}
+        """
+    )
 
     context = ssl.create_default_context()
 

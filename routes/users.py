@@ -21,6 +21,9 @@ def signup_user():
         bio=request.json["bio"],
     )
 
+    # FIXME: remove later - just for testing, if above is commented-out to avoid writing to db
+    # new_user = {}
+
     if "error" not in new_user:
         hash = t.get_jwt({"email": email})
         verification_link = "http://www.recipease.com/verify/" + hash
