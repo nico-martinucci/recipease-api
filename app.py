@@ -3,7 +3,6 @@ from os import environ
 from dotenv import load_dotenv
 from routes.recipes import recipes
 from routes.users import users
-from routes.ratings import ratings
 from routes.ingredients import ingredients
 from models import connect_db, db
 
@@ -22,5 +21,4 @@ db.create_all()
 
 app.register_blueprint(recipes, url_prefix="/api/recipes")
 app.register_blueprint(users, url_prefix="/api/users")
-app.register_blueprint(ratings, url_prefix="/api/ratings")
 app.register_blueprint(ingredients, url_prefix="/api/ingredients")
