@@ -118,7 +118,7 @@ class UserRecipe(db.Model):
         db.ForeignKey("recipes.id"),
         nullable=False
     )
-    notes = db.Column(db.Text)
+    comment = db.Column(db.Text)
     is_starred = db.Column(db.Boolean)
     is_made = db.Column(db.Boolean)
     rating = db.Column(db.Integer)
@@ -193,3 +193,21 @@ class Unit(db.Model):
     short = db.Column(db.Text, primary_key=True)
     singular = db.Column(db.Text, nullable=False)
     plural = db.Column(db.Text, nullable=False)
+
+
+class RecipeNotes(db.Model):
+    """
+    Notes on recipes; can only be submitted by the author of the recipe, and 
+    are only visible to the author.
+    """
+
+    __tablename__ = "recipe_notes"
+
+    id = db.Column(db.Integer, primary_key=True)
+    recipe_id = db.Column(
+        db.Integer,
+        db.ForeignKey("recipes.id"),
+        nullable=False
+    )
+    time_stamp = db.Column(db.DateTime, nullable=False)
+    note = db.Column(db.Text, nullable=False)
