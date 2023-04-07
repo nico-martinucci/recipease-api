@@ -1,6 +1,6 @@
 --
 -- PostgreSQL database dump
--- "psql recipease < dump.sql" to re-seed
+-- "psql recipeats < dump.sql" to re-seed
 
 -- Dumped from database version 14.5 (Ubuntu 14.5-0ubuntu0.22.04.1)
 -- Dumped by pg_dump version 14.5 (Ubuntu 14.5-0ubuntu0.22.04.1)
