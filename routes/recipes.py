@@ -79,3 +79,19 @@ def add_rating(recipe_id):
     )
 
     return jsonify(avg_rating)
+
+
+@recipes.post("/<int:recipe_id>/notes")
+@authorize
+def add_note(recipe_id):
+    """
+    Adds a new note to the provided recipe.
+    """
+
+    new_note = q.add_note_to_recipe(
+        recipe_id=recipe_id,
+        username=request.json["username"],
+        note=request.json["note"]
+    )
+
+    return jsonify(new_note)

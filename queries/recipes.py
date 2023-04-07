@@ -1,4 +1,4 @@
-from models import Recipe, RecipeItem, RecipeStep, UserRecipe, db
+from models import Recipe, RecipeItem, RecipeStep, RecipeNote, UserRecipe, db
 from statistics import mean
 
 
@@ -201,3 +201,35 @@ def add_rating_to_recipe(recipe_id, username, rating):
     }
 
     return {"rating": serialized}
+
+
+def add_note_to_recipe(recipe_id, username, note):
+    """
+    Adds a note to the provided recipe, assuming that the provided username
+    matches that of the recipe's creator (notes are reserved for the owner
+    of the recipe; comments are public postings for all to see).
+    """
+
+    # get the recipe's created_by and compare it to username
+    # if they don't match, return an error
+    # otherwise, create a new note in the db
+    # return that note's content
+
+    recipe = Recipe.query.get(recipe_id)
+
+    if recipe.created_by.username != username:
+        return {"error": "Username doesn't match that of recipe's owner."}
+
+    new_note = RecipeNote(
+        recipe_id=recipe_id,
+        note=note
+    )
+
+    db.session.add(new_note)
+    db.session.commit()
+
+    serialized = {
+        "note": new_note.note
+    }
+
+    return serialized

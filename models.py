@@ -1,4 +1,5 @@
 from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy.sql import func
 
 db = SQLAlchemy()
 
@@ -98,7 +99,12 @@ class RecipeComment(db.Model):
         nullable=False
     )
     comment = db.Column(db.Text, nullable=False)
-    time_stamp = db.Column(db.DateTime, nullable=False)
+    time_stamp = db.Column(
+        db.DateTime(timezone=True), 
+        default=func.now(),
+        onupdate=func.now(),
+        nullable=False
+    )
 
     posted_by = db.relationship("User", backref="comments")
     recipe = db.relationship("Recipe", backref="comments")
@@ -118,7 +124,6 @@ class UserRecipe(db.Model):
         db.ForeignKey("recipes.id"),
         nullable=False
     )
-    comment = db.Column(db.Text)
     is_starred = db.Column(db.Boolean)
     is_made = db.Column(db.Boolean)
     rating = db.Column(db.Integer)
@@ -195,7 +200,7 @@ class Unit(db.Model):
     plural = db.Column(db.Text, nullable=False)
 
 
-class RecipeNotes(db.Model):
+class RecipeNote(db.Model):
     """
     Notes on recipes; can only be submitted by the author of the recipe, and 
     are only visible to the author.
@@ -209,5 +214,10 @@ class RecipeNotes(db.Model):
         db.ForeignKey("recipes.id"),
         nullable=False
     )
-    time_stamp = db.Column(db.DateTime, nullable=False)
+    time_stamp = db.Column(
+        db.DateTime(timezone=True), 
+        default=func.now(),
+        onupdate=func.now(),
+        nullable=False
+    )
     note = db.Column(db.Text, nullable=False)
