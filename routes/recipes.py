@@ -1,4 +1,5 @@
 from flask import Blueprint, jsonify, request
+from helpers.auth import authorize
 import queries.recipes as q
 
 
@@ -11,41 +12,43 @@ def get_recipes():
     Returns a list of all recipes, optionally filtered by the provided criteria.
     """
 
-    filters = {
-        "ingredients": request.args.get("ingredients", ""),
-        "minRating": request.args.get("minRating", 0),
-        "saved": request.args.get("saved", False),
-        "meal": request.args.get("meal", ""),
-        "type": request.args.get("type", ""),
-        "made": request.args.get("made", False),
-        "name": request.args.get("name", "")
-    }
+    # FIXME: removing the more complicated filtering for now - this is going to
+    # take some doing to figure out. for now, going to implement a version that
+    # just takes
+    # filters = {
+    #     "ingredients": request.args.get("ingredients", ""),
+    #     "minRating": request.args.get("minRating", 0),
+    #     "saved": request.args.get("saved", False),
+    #     "meal": request.args.get("meal", ""),
+    #     "type": request.args.get("type", ""),
+    #     "made": request.args.get("made", False),
+    #     "name": request.args.get("name", "")
+    # }
 
-    if filters["ingredients"]:
-        filters["ingredients"] = filters["ingredients"].split(",")
+    # if filters["ingredients"]:
+    #     filters["ingredients"] = filters["ingredients"].split(",")
 
-    if filters["meal"]:
-        filters["meal"] = filters["meal"].split(",")
+    # if filters["meal"]:
+    #     filters["meal"] = filters["meal"].split(",")
 
-    if filters["type"]:
-        filters["type"] = filters["type"].split(",")
+    # if filters["type"]:
+    #     filters["type"] = filters["type"].split(",")
 
-    print(filters)
+    # print(filters)
 
     # FIXME: figure out how to pass these to the function below. not sure the
     # best way to handle - some filters live on recipe, some live in
     # ingredients, and some are living on the recipe/user relationship.
 
-    recipes = q.get_all_recipes()
+    recipes = q.get_all_recipes(request.args.get("name", ""))
 
     return jsonify(recipes)
 
 
 @recipes.post("/")
+@authorize
 def add_recipe():
     """Adds a new recipe; Returns new recipe."""
-
-    # TODO: add authentication
 
     new_recipe = q.add_new_recipe(
         name=request.json["name"],

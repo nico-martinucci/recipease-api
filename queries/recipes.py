@@ -1,13 +1,14 @@
 from models import Recipe, RecipeItem, RecipeStep, db
 
 
-def get_all_recipes():
+def get_all_recipes(filter):
     """
     Gets and returns all recipes, optionally filtered by the provided 
     information.
     """
 
-    recipes = Recipe.query.all()
+    name_filter = "%{}%".format(filter)
+    recipes = Recipe.query.filter(Recipe.name.ilike(name_filter)).all()
 
     serialized = [
         {
