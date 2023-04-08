@@ -27,8 +27,45 @@ def get_all_recipes(filter):
     return {"recipes": serialized}
 
 
-def get_recipe():
+def get_recipe(recipe_id):
     """Gets and returns a singular recipe, based on the provided id."""
+
+    recipe = Recipe.query.get(recipe_id)
+
+    recipe_items = [
+        {
+            "id": item.id,
+            "amount": item.amount,
+            "unit": item.short_unit,
+            "ingredient": item.ingredient,
+            "description": item.description,
+            "order": item.order
+        }
+        for item in recipe.items
+    ]
+
+    recipe_steps = [
+        {
+            "id": step.id,
+            "description": step.description,
+            "order": step.order
+        }
+        for step in recipe.steps
+    ]
+
+    serialized = {
+        "id": recipe.id,
+        "name": recipe.name,
+        "description": recipe.description,
+        "created_by": recipe.user_username,
+        "meal_name": recipe.meal_name,
+        "type_name": recipe.type_name,
+        "private": recipe.private,
+        "items": recipe_items,
+        "steps": recipe_steps
+    }
+
+    return {"recipe": serialized}
 
 
 def add_new_recipe(name, description, username, meal_name, type_name, private,
@@ -52,6 +89,8 @@ def add_new_recipe(name, description, username, meal_name, type_name, private,
 
     recipe_items = add_recipe_items(recipe_id=new_recipe.id, items=items)
     recipe_steps = add_recipe_steps(recipe_id=new_recipe.id, steps=steps)
+
+    db.session.commit()
 
     serialized = {
         "id": new_recipe.id,
@@ -89,7 +128,7 @@ def add_recipe_items(recipe_id, items):
         db.session.add(new_item)
         recipe_items.append(new_item)
 
-    db.session.commit()
+    # db.session.commit()
 
     serialized = [
         {
@@ -124,7 +163,7 @@ def add_recipe_steps(recipe_id, steps):
         db.session.add(new_step)
         recipe_steps.append(new_step)
 
-    db.session.commit()
+    # db.session.commit()
 
     serialized = [
         {
@@ -228,3 +267,30 @@ def add_note_to_recipe(recipe_id, username, note):
     }
 
     return serialized
+
+
+def replace_all_recipe_items(recipe_id, items):
+    """
+    Replaces all current items for a recipe with the items in the provided data
+    argument; deletes all current records and 
+    """
+
+    # delete current recipe items
+    # write a new set of recipe items
+    # return the new set of recipe items
+
+    RecipeItem.query.filter(RecipeItem.recipe_id == recipe_id).delete()
+
+    new_items = add_recipe_items(
+        recipe_id=recipe_id, 
+        items=items
+    )
+
+    db.session.commit()
+
+    serialized = {
+        "recipe_id": recipe_id,
+        "items": new_items
+    }
+
+    return {"new_items": serialized}

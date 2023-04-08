@@ -64,6 +64,15 @@ def add_recipe():
     return jsonify(new_recipe)
 
 
+@recipes.get("/<int:recipe_id>")
+def get_recipe(recipe_id):
+    """Gets a single recipe by id."""
+
+    recipe = q.get_recipe(recipe_id=recipe_id)
+
+    return jsonify(recipe)
+
+
 @recipes.post("/<int:recipe_id>/ratings")
 @authorize
 def add_rating(recipe_id):
@@ -95,3 +104,18 @@ def add_note(recipe_id):
     )
 
     return jsonify(new_note)
+
+
+@recipes.put("/<int:recipe_id>/items")
+@authorize
+def update_recipe_items(recipe_id):
+    """
+    Updates all items for a given recipe.
+    """
+
+    new_items = q.replace_all_recipe_items(
+        recipe_id=recipe_id,
+        items=request.json["items"]
+    )
+
+    return jsonify(new_items)
