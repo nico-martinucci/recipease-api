@@ -185,12 +185,6 @@ class Meal(db.Model):
     name = db.Column(db.Text, primary_key=True)
     description = db.Column(db.Text, nullable=False)
 
-    def serialize(self):
-        return {
-            "name": self.name,
-            "description": self.description
-        }
-
 
 class Unit(db.Model):
     __tablename__ = "units"
@@ -221,3 +215,5 @@ class RecipeNote(db.Model):
         nullable=False
     )
     note = db.Column(db.Text, nullable=False)
+
+    recipe = db.relationship("Recipe", backref="notes")

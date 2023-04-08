@@ -53,6 +53,15 @@ def get_recipe(recipe_id):
         for step in recipe.steps
     ]
 
+    recipe_notes = [
+        {
+            "id": note.id,
+            "time_stamp": note.time_stamp,
+            "note": note.note
+        }
+        for note in recipe.notes
+    ]
+
     serialized = {
         "id": recipe.id,
         "name": recipe.name,
@@ -62,7 +71,8 @@ def get_recipe(recipe_id):
         "type_name": recipe.type_name,
         "private": recipe.private,
         "items": recipe_items,
-        "steps": recipe_steps
+        "steps": recipe_steps,
+        "notes": recipe_notes
     }
 
     return {"recipe": serialized}
