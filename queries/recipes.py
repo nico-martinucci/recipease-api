@@ -275,10 +275,6 @@ def replace_all_recipe_items(recipe_id, items):
     argument; deletes all current records and 
     """
 
-    # delete current recipe items
-    # write a new set of recipe items
-    # return the new set of recipe items
-
     RecipeItem.query.filter(RecipeItem.recipe_id == recipe_id).delete()
 
     new_items = add_recipe_items(
@@ -294,3 +290,26 @@ def replace_all_recipe_items(recipe_id, items):
     }
 
     return {"new_items": serialized}
+
+
+def replace_all_recipe_steps(recipe_id, steps):
+    """
+    Replaces all current steps for a recipe with the steps in the provided data
+    argument; deletes all current records and 
+    """
+
+    RecipeStep.query.filter(RecipeStep.recipe_id == recipe_id).delete()
+
+    new_steps = add_recipe_steps(
+        recipe_id=recipe_id, 
+        steps=steps
+    )
+
+    db.session.commit()
+
+    serialized = {
+        "recipe_id": recipe_id,
+        "steps": new_steps
+    }
+
+    return {"new_steps": serialized}

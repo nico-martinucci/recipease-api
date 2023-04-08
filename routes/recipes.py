@@ -119,3 +119,18 @@ def update_recipe_items(recipe_id):
     )
 
     return jsonify(new_items)
+
+
+@recipes.put("/<int:recipe_id>/steps")
+@authorize
+def update_recipe_steps(recipe_id):
+    """
+    Updates all steps for a given recipe.
+    """
+
+    new_steps = q.replace_all_recipe_steps(
+        recipe_id=recipe_id,
+        steps=request.json["steps"]
+    )
+
+    return jsonify(new_steps)
