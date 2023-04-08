@@ -210,11 +210,6 @@ def add_note_to_recipe(recipe_id, username, note):
     of the recipe; comments are public postings for all to see).
     """
 
-    # get the recipe's created_by and compare it to username
-    # if they don't match, return an error
-    # otherwise, create a new note in the db
-    # return that note's content
-
     recipe = Recipe.query.get(recipe_id)
 
     if recipe.created_by.username != username:
