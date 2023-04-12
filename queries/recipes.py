@@ -56,7 +56,7 @@ def get_recipe(recipe_id):
     recipe_notes = [
         {
             "id": note.id,
-            "time_stamp": note.time_stamp,
+            "timeStamp": note.time_stamp,
             "note": note.note
         }
         for note in recipe.notes
@@ -66,7 +66,7 @@ def get_recipe(recipe_id):
         "id": recipe.id,
         "name": recipe.name,
         "description": recipe.description,
-        "created_by": recipe.user_username,
+        "createdBy": recipe.user_username,
         "mealName": recipe.meal_name,
         "typeName": recipe.type_name,
         "private": recipe.private,
@@ -106,7 +106,7 @@ def add_new_recipe(name, description, username, meal_name, type_name, private,
         "id": new_recipe.id,
         "name": new_recipe.name,
         "description": new_recipe.description,
-        "created_by": new_recipe.user_username,
+        "createdBy": new_recipe.user_username,
         "mealName": new_recipe.meal_name,
         "typeName": new_recipe.type_name,
         "private": new_recipe.private,
