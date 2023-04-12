@@ -15,10 +15,10 @@ def get_all_recipes(filter):
         {
             "id": recipe.id,
             "name": recipe.name,
-            "photo_url": recipe.photo_url,
-            "meal_name": recipe.meal_name,
-            "type_name": recipe.type_name,
-            "created_by": recipe.created_by.username,
+            "photoUrl": recipe.photo_url,
+            "mealName": recipe.meal_name,
+            "typeName": recipe.type_name,
+            "createdBy": recipe.created_by.username,
             "rating": recipe.rating
         }
         for recipe in recipes
@@ -67,8 +67,8 @@ def get_recipe(recipe_id):
         "name": recipe.name,
         "description": recipe.description,
         "created_by": recipe.user_username,
-        "meal_name": recipe.meal_name,
-        "type_name": recipe.type_name,
+        "mealName": recipe.meal_name,
+        "typeName": recipe.type_name,
         "private": recipe.private,
         "items": recipe_items,
         "steps": recipe_steps,
@@ -107,8 +107,8 @@ def add_new_recipe(name, description, username, meal_name, type_name, private,
         "name": new_recipe.name,
         "description": new_recipe.description,
         "created_by": new_recipe.user_username,
-        "meal_name": new_recipe.meal_name,
-        "type_name": new_recipe.type_name,
+        "mealName": new_recipe.meal_name,
+        "typeName": new_recipe.type_name,
         "private": new_recipe.private,
         "items": recipe_items,
         "steps": recipe_steps
@@ -245,7 +245,7 @@ def add_rating_to_recipe(recipe_id, username, rating):
     db.session.commit()
 
     serialized = {
-        "recipe_id": rated_recipe.id,
+        "recipeId": rated_recipe.id,
         "rating": rated_recipe.rating,
     }
 
@@ -288,14 +288,14 @@ def replace_all_recipe_items(recipe_id, items):
     RecipeItem.query.filter(RecipeItem.recipe_id == recipe_id).delete()
 
     new_items = add_recipe_items(
-        recipe_id=recipe_id, 
+        recipe_id=recipe_id,
         items=items
     )
 
     db.session.commit()
 
     serialized = {
-        "recipe_id": recipe_id,
+        "recipeId": recipe_id,
         "items": new_items
     }
 
@@ -311,14 +311,14 @@ def replace_all_recipe_steps(recipe_id, steps):
     RecipeStep.query.filter(RecipeStep.recipe_id == recipe_id).delete()
 
     new_steps = add_recipe_steps(
-        recipe_id=recipe_id, 
+        recipe_id=recipe_id,
         steps=steps
     )
 
     db.session.commit()
 
     serialized = {
-        "recipe_id": recipe_id,
+        "recipeId": recipe_id,
         "steps": new_steps
     }
 

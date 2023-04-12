@@ -44,8 +44,8 @@ def add_new_user(username, email, password, first_name, last_name, bio):
         serialized = {
             "username": new_user.username,
             "email": new_user.email,
-            "first_name": new_user.first_name,
-            "last_name": new_user.last_name,
+            "firstName": new_user.first_name,
+            "lastName": new_user.last_name,
             "bio": new_user.bio,
         }
 
@@ -100,9 +100,9 @@ def get_users(filter):
     serialized = [
         {
             "username": user.username,
-            "first_name": user.first_name,
-            "last_name": user.last_name,
-            "photo_url": user.photo_url
+            "firstName": user.first_name,
+            "lastName": user.last_name,
+            "photoUrl": user.photo_url
         }
         for user in users
     ]
@@ -131,9 +131,9 @@ def get_user(username):
 
     serialize_user = {
         "username": user.username,
-        "first_name": user.first_name,
-        "last_name": user.last_name,
-        "photo_url": user.photo_url,
+        "firstName": user.first_name,
+        "lastName": user.last_name,
+        "photoUrl": user.photo_url,
         "bio": user.bio,
         "recipes": serialize_recipes
     }
