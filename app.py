@@ -1,4 +1,5 @@
 from flask import Flask
+from flask_cors import CORS
 from os import environ
 from dotenv import load_dotenv
 from routes.recipes import recipes
@@ -9,6 +10,7 @@ from models import connect_db, db
 load_dotenv()
 
 app = Flask(__name__)
+CORS(app)
 
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql:///recipeats"
