@@ -15,6 +15,7 @@ def get_all_recipes(filter):
         {
             "id": recipe.id,
             "name": recipe.name,
+            "description": recipe.description,
             "photoUrl": recipe.photo_url,
             "mealName": recipe.meal_name,
             "typeName": recipe.type_name,
