@@ -7,4 +7,8 @@ types = Blueprint("types", __name__)
 
 @types.get("/")
 def get_types():
-    """Gets list of all meal types."""
+    """Gets list of all recipe types."""
+
+    all_types = q.get_all_types()
+
+    return jsonify(all_types)
