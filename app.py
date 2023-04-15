@@ -7,6 +7,7 @@ from routes.users import users
 from routes.ingredients import ingredients
 from routes.meals import meals
 from routes.types import types
+from routes.units import units
 from models import connect_db, db
 
 load_dotenv()
@@ -28,3 +29,4 @@ app.register_blueprint(users, url_prefix="/api/users")
 app.register_blueprint(ingredients, url_prefix="/api/ingredients")
 app.register_blueprint(meals, url_prefix="/api/meals")
 app.register_blueprint(types, url_prefix="/api/types")
+app.register_blueprint(units, url_prefix="/api/units")
