@@ -13,7 +13,7 @@ def get_ingredients():
     string.
     """
 
-    ingredients = q.get_ingredients(request.args["nameLike"])
+    ingredients = q.get_ingredients(request.args.get("nameLike", ""))
 
     return jsonify(ingredients)
 
