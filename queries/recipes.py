@@ -79,7 +79,7 @@ def get_recipe(recipe_id):
     return {"recipe": serialized}
 
 
-def add_new_recipe(name, description, username, meal_name, type_name, private,
+def add_new_recipe(name, description, createdBy, meal_name, type_name, private,
                    items, steps):
     """
     Adds a new recipe to the database with the provided information; Returns
@@ -89,7 +89,7 @@ def add_new_recipe(name, description, username, meal_name, type_name, private,
     new_recipe = Recipe(
         name=name,
         description=description,
-        user_username=username,
+        user_username=createdBy,
         meal_name=meal_name,
         type_name=type_name,
         private=private

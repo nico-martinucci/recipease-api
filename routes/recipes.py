@@ -53,7 +53,7 @@ def add_recipe():
     new_recipe = q.add_new_recipe(
         name=request.json["name"],
         description=request.json["description"],
-        username=request.json["username"],
+        createdBy=request.json["createdBy"],
         meal_name=request.json["mealName"],
         type_name=request.json["typeName"],
         private=request.json["private"],
