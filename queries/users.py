@@ -41,12 +41,7 @@ def add_new_user(username, email, password, first_name, last_name, bio):
     db.session.add(new_user)
     db.session.commit()
 
-    return {"token": token.get_jwt(
-        {
-            "username": username,
-            "isVerified": new_user.is_verified
-        }
-    )}
+    return {"token": get_user_jwt(username, new_user.is_verified)}
 
     # except:
     #     return {"error": "Something went wrong..."}
@@ -65,14 +60,23 @@ def authenticate_current_user(username, password):
         if not is_auth:
             return {"error": "Invalid username/password combination. Please try again."}
 
-        return {"token": token.get_jwt(
-            {
-                "username": username,
-                "isVerified": user.is_verified
-            }
-        )}
+        return {"token": get_user_jwt(username, user.is_verified)}
 
     return {"error": "Username not found. Please try again."}
+
+
+def get_user_jwt(username, is_verified):
+    """
+    Generates and returns a valid JWT with the provided username and 
+    "isVerified" value.
+    """
+
+    return token.get_jwt(
+        {
+            "username": username,
+            "isVerified": is_verified
+        }
+    )
 
 
 def set_user_as_valid(email):

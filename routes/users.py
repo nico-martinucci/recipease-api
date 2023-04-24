@@ -57,9 +57,9 @@ def verify_user():
         return jsonify(data)
 
     username = q.set_user_as_valid(data["email"])
-    user = q.get_user(username)
+    token = q.get_user_jwt(username, True)
 
-    return jsonify(user)
+    return jsonify(token)
 
 
 @users.post("/<username>/photo")
