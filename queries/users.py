@@ -41,15 +41,12 @@ def add_new_user(username, email, password, first_name, last_name, bio):
         db.session.add(new_user)
         db.session.commit()
 
-        serialized = {
-            "username": new_user.username,
-            "email": new_user.email,
-            "firstName": new_user.first_name,
-            "lastName": new_user.last_name,
-            "bio": new_user.bio,
-        }
-
-        return {"user": serialized}
+        return {"token": token.get_jwt(
+            {
+                "username": username,
+                "isVerified": new_user.is_verified
+            }
+        )}
 
     except:
         return {"error": "Something went wrong..."}
@@ -68,7 +65,12 @@ def authenticate_current_user(username, password):
         if not is_auth:
             return {"error": "Invalid username/password combination. Please try again."}
 
-        return {"token": token.get_jwt({"username": username})}
+        return {"token": token.get_jwt(
+            {
+                "username": username,
+                "isVerified": user.is_verified
+            }
+        )}
 
     return {"error": "Username not found. Please try again."}
 
@@ -124,7 +126,7 @@ def get_user(username):
     # TODO: flesh this out once there are routes to add recipes
     serialize_recipes = [
         {
-            recipe.name
+            "name": recipe.name
         }
         for recipe in user.recipes
     ]
