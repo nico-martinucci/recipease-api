@@ -33,8 +33,8 @@ def add_new_user(username, email, password, first_name, last_name, bio):
             username=username,
             email=email,
             password=hashed_pwd,
-            first_name=first_name,
-            last_name=last_name,
+            firstName=first_name,
+            lastName=last_name,
             bio=bio
         )
 
