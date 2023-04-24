@@ -28,28 +28,28 @@ def add_new_user(username, email, password, first_name, last_name, bio):
 
     hashed_pwd = bcrypt.generate_password_hash(password).decode('UTF-8')
 
-    try:
-        new_user = User(
-            username=username,
-            email=email,
-            password=hashed_pwd,
-            firstName=first_name,
-            lastName=last_name,
-            bio=bio
-        )
+    # try:
+    new_user = User(
+        username=username,
+        email=email,
+        password=hashed_pwd,
+        first_name=first_name,
+        last_name=last_name,
+        bio=bio
+    )
 
-        db.session.add(new_user)
-        db.session.commit()
+    db.session.add(new_user)
+    db.session.commit()
 
-        return {"token": token.get_jwt(
-            {
-                "username": username,
-                "isVerified": new_user.is_verified
-            }
-        )}
+    return {"token": token.get_jwt(
+        {
+            "username": username,
+            "isVerified": new_user.is_verified
+        }
+    )}
 
-    except:
-        return {"error": "Something went wrong..."}
+    # except:
+    #     return {"error": "Something went wrong..."}
 
 
 def authenticate_current_user(username, password):
@@ -137,7 +137,8 @@ def get_user(username):
         "lastName": user.last_name,
         "photoUrl": user.photo_url,
         "bio": user.bio,
-        "recipes": serialize_recipes
+        "recipes": serialize_recipes,
+        "email": user.email
     }
 
     return {"user": serialize_user}
