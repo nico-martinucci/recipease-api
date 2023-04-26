@@ -26,9 +26,9 @@ def signup_user():
 
     if "error" not in new_user:
         hash = t.get_jwt({"email": email})
-        verification_link = "http://www.recipeats.fyi/verify/" + hash
+        verification_link = "http://www.recipeats.fyi/verify?token=" + hash
         # TODO: uncomment out the below to have verification emails actually be sent
-        # v.send_verification_email(email=email, link=verification_link)
+        v.send_verification_email(email=email, link=verification_link)
 
     return jsonify(new_user)
 
