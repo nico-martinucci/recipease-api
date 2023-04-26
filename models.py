@@ -27,6 +27,7 @@ class Recipe(db.Model):
     __tablename__ = "recipes"
 
     id = db.Column(db.Integer, primary_key=True)
+    forked_from = db.Column(db.Integer, nullable=False, default=-1)
     name = db.Column(db.Text, nullable=False)
     description = db.Column(db.Text, nullable=False)
     user_username = db.Column(db.Text, db.ForeignKey("users.username"))
@@ -56,7 +57,7 @@ class RecipeItem(db.Model):
     )
     order = db.Column(db.Integer, nullable=False)
     amount = db.Column(db.Integer, nullable=False)
-    short_unit = db.Column(db.Text, db.ForeignKey("units.short"))
+    short_unit = db.Column(db.Text)
     ingredient = db.Column(
         db.Text,
         db.ForeignKey("ingredients.name"),
@@ -65,7 +66,6 @@ class RecipeItem(db.Model):
     description = db.Column(db.Text)
 
     recipe = db.relationship("Recipe", backref="items")
-    unit = db.relationship("Unit")
     ingredient_detail = db.relationship("Ingredient", backref="uses")
 
 
@@ -100,7 +100,7 @@ class RecipeComment(db.Model):
     )
     comment = db.Column(db.Text, nullable=False)
     time_stamp = db.Column(
-        db.DateTime(timezone=True), 
+        db.DateTime(timezone=True),
         default=func.now(),
         onupdate=func.now(),
         nullable=False
@@ -209,7 +209,7 @@ class RecipeNote(db.Model):
         nullable=False
     )
     time_stamp = db.Column(
-        db.DateTime(timezone=True), 
+        db.DateTime(timezone=True),
         default=func.now(),
         onupdate=func.now(),
         nullable=False
