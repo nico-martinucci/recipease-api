@@ -130,7 +130,14 @@ def get_user(username):
     # TODO: flesh this out once there are routes to add recipes
     serialize_recipes = [
         {
-            "name": recipe.name
+            "id": recipe.id,
+            "name": recipe.name,
+            "description": recipe.description,
+            "photoUrl": recipe.photo_url,
+            "mealName": recipe.meal_name,
+            "typeName": recipe.type_name,
+            "createdBy": recipe.created_by.username,
+            "rating": recipe.rating
         }
         for recipe in user.recipes
     ]
