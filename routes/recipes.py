@@ -1,6 +1,7 @@
 from flask import Blueprint, jsonify, request
 from helpers.auth import authorize
 import queries.recipes as q
+import helpers.s3_upload as f
 
 
 recipes = Blueprint("recipes", __name__)
@@ -67,9 +68,17 @@ def add_recipe():
 @recipes.post("/<int:recipe_id>/photos")
 @authorize
 def add_photo_to_recipe(recipe_id):
-    """Adds a new photo to the given recipe. Will replace current photo."""
+    """Adds a new photo to the given recipe."""
 
-    # TODO: pick-up here, need to write route/query and figure out upload
+    photo_url = f.post_new_file(request.files["photo"])
+
+    new_photo = q.upload_new_recipe_photo(
+        recipe_id=recipe_id,
+        username=request.form["username"],
+        photo_url=photo_url
+    )
+
+    return jsonify(new_photo)
 
 
 @recipes.get("/<int:recipe_id>")

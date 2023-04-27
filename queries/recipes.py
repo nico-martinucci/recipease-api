@@ -1,4 +1,4 @@
-from models import Recipe, RecipeItem, RecipeStep, RecipeNote, UserRecipe, db
+from models import Recipe, RecipeItem, RecipeStep, RecipeNote, UserRecipe, RecipePhoto, db
 from statistics import mean
 
 
@@ -71,6 +71,7 @@ def get_recipe(recipe_id):
         "mealName": recipe.meal_name,
         "typeName": recipe.type_name,
         "private": recipe.private,
+        "photoUrl": recipe.photo_url,
         "items": recipe_items,
         "steps": recipe_steps,
         "notes": recipe_notes
@@ -371,3 +372,33 @@ def replace_all_recipe_notes(recipe_id, notes, username):
         ))
 
     return {"newNotes": new_notes}
+
+
+def upload_new_recipe_photo(recipe_id, username, photo_url):
+    """
+    Adds a new entry to the RecipePhoto table with for the given recipe. If
+    the recipe doesn't have a default photo, will add the uploaded photo as
+    the default photo. Returns a data object with the url and username. 
+    """
+
+    new_photo = RecipePhoto(
+        recipe_id=recipe_id,
+        uploaded_by=username,
+        photo_url=photo_url
+    )
+
+    db.session.add(new_photo)
+    db.session.commit()
+
+    recipe = Recipe.query.get(recipe_id)
+
+    if not recipe.photo_url:
+        recipe.photo_url = new_photo.photo_url
+        db.session.commit()
+
+    serialized = {
+        "username": new_photo.uploaded_by,
+        "photoUrl": new_photo.photo_url
+    }
+
+    return {"newPhoto": serialized}
