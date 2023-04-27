@@ -217,3 +217,26 @@ class RecipeNote(db.Model):
     note = db.Column(db.Text, nullable=False)
 
     recipe = db.relationship("Recipe", backref="notes")
+
+
+class RecipePhoto(db.Model):
+    """
+    Photo uploads for recipes.
+    """
+
+    __tablename__ = "recipe_photos"
+
+    id = db.Column(db.Integer, primary_key=True)
+    recipe_id = db.Column(
+        db.Integer,
+        db.ForeignKey("recipes.id"),
+        nullable=False
+    )
+    uploaded_by = db.Column(
+        db.Text,
+        db.ForeignKey("users.username"),
+        nullable=False
+    )
+    photo_url = db.Column(db.Text, nullable=False)
+
+    recipe = db.relationship("Recipe", backref="photos")
