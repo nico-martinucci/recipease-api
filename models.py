@@ -238,5 +238,6 @@ class RecipePhoto(db.Model):
         nullable=False
     )
     photo_url = db.Column(db.Text, nullable=False)
+    caption = db.Column(db.Text)
 
     recipe = db.relationship("Recipe", backref="photos")
