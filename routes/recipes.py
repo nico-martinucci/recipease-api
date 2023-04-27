@@ -64,6 +64,14 @@ def add_recipe():
     return jsonify(new_recipe)
 
 
+@recipes.post("/<int:recipe_id>/photos")
+@authorize
+def add_photo_to_recipe(recipe_id):
+    """Adds a new photo to the given recipe. Will replace current photo."""
+
+    # TODO: pick-up here, need to write route/query and figure out upload
+
+
 @recipes.get("/<int:recipe_id>")
 def get_recipe(recipe_id):
     """Gets a single recipe by id."""
