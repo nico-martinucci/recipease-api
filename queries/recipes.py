@@ -274,16 +274,43 @@ def add_note_to_recipe(recipe_id, username, note):
     db.session.commit()
 
     serialized = {
+        "id": new_note.id,
         "note": new_note.note
     }
 
     return serialized
 
 
+def replace_all_recipe_basics(recipe_id, description, meal_name, type_name, private):
+    """
+    Replaces all basic recipe information for a given recipe with the provided
+    data. Does not change the recipe's name, which can't be changed. Returns
+    the updated data.
+    """
+
+    recipe = Recipe.query.get(recipe_id)
+
+    recipe.description = description
+    recipe.meal_name = meal_name
+    recipe.type_name = type_name
+    recipe.private = private
+
+    db.session.commit()
+
+    serialized = {
+        "description": recipe.description,
+        "meal_name": recipe.meal_name,
+        "type_name": recipe.type_name,
+        "private": recipe.private,
+    }
+
+    return {"new_basics": serialized}
+
+
 def replace_all_recipe_items(recipe_id, items):
     """
     Replaces all current items for a recipe with the items in the provided data
-    argument; deletes all current records and 
+    argument; deletes all current records and writes new ones.
     """
 
     RecipeItem.query.filter(RecipeItem.recipe_id == recipe_id).delete()
@@ -306,7 +333,7 @@ def replace_all_recipe_items(recipe_id, items):
 def replace_all_recipe_steps(recipe_id, steps):
     """
     Replaces all current steps for a recipe with the steps in the provided data
-    argument; deletes all current records and 
+    argument; deletes all current records and writes new ones.
     """
 
     RecipeStep.query.filter(RecipeStep.recipe_id == recipe_id).delete()
@@ -324,3 +351,23 @@ def replace_all_recipe_steps(recipe_id, steps):
     }
 
     return {"new_steps": serialized}
+
+
+def replace_all_recipe_notes(recipe_id, notes, username):
+    """
+    Replaces all current steps for a recipes with the notes in the provided data
+    argument; deletes all current records and writes new ones.
+    """
+
+    RecipeNote.query.filter(RecipeNote.recipe_id == recipe_id).delete()
+
+    new_notes = []
+
+    for note in notes:
+        new_notes.append(add_note_to_recipe(
+            recipe_id=recipe_id,
+            username=username,
+            note=note["note"]
+        ))
+
+    return {"notes": new_notes}

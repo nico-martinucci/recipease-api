@@ -106,6 +106,24 @@ def add_note(recipe_id):
     return jsonify(new_note)
 
 
+@recipes.put("/<int:recipe_id>/basics")
+@authorize
+def update_recipe_basics(recipe_id):
+    """
+    Updates all recipes basics (except the recipe's name).
+    """
+
+    new_basics = q.replace_all_recipe_basics(
+        recipe_id=recipe_id,
+        description=request.json["description"],
+        meal_name=request.json["mealName"],
+        type_name=request.json["typeName"],
+        private=request.json["private"]
+    )
+
+    return jsonify(new_basics)
+
+
 @recipes.put("/<int:recipe_id>/items")
 @authorize
 def update_recipe_items(recipe_id):
@@ -134,3 +152,19 @@ def update_recipe_steps(recipe_id):
     )
 
     return jsonify(new_steps)
+
+
+@recipes.put("/<int:recipe_id>/notes")
+@authorize
+def update_recipe_notes(recipe_id):
+    """
+    Update all notes for a given recipe.
+    """
+
+    new_notes = q.replace_all_recipe_notes(
+        recipe_id=recipe_id,
+        notes=request.json["notes"],
+        username=request.json["username"]
+    )
+
+    return jsonify(new_notes)
