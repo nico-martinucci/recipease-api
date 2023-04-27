@@ -75,7 +75,8 @@ def add_photo_to_recipe(recipe_id):
     new_photo = q.upload_new_recipe_photo(
         recipe_id=recipe_id,
         username=request.form["username"],
-        photo_url=photo_url
+        photo_url=photo_url,
+        caption=request.form["caption"]
     )
 
     return jsonify(new_photo)

@@ -374,7 +374,7 @@ def replace_all_recipe_notes(recipe_id, notes, username):
     return {"newNotes": new_notes}
 
 
-def upload_new_recipe_photo(recipe_id, username, photo_url):
+def upload_new_recipe_photo(recipe_id, username, photo_url, caption):
     """
     Adds a new entry to the RecipePhoto table with for the given recipe. If
     the recipe doesn't have a default photo, will add the uploaded photo as
@@ -384,7 +384,8 @@ def upload_new_recipe_photo(recipe_id, username, photo_url):
     new_photo = RecipePhoto(
         recipe_id=recipe_id,
         uploaded_by=username,
-        photo_url=photo_url
+        photo_url=photo_url,
+        caption=caption
     )
 
     db.session.add(new_photo)
@@ -398,7 +399,8 @@ def upload_new_recipe_photo(recipe_id, username, photo_url):
 
     serialized = {
         "username": new_photo.uploaded_by,
-        "photoUrl": new_photo.photo_url
+        "photoUrl": new_photo.photo_url,
+        "caption": new_photo.caption
     }
 
     return {"newPhoto": serialized}
