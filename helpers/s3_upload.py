@@ -8,7 +8,7 @@ s3 = boto3.resource('s3')
 
 def post_new_file(file):
     """ Upload a new file; returns URL to file. """
-    bucket_name = "recipeats"
+    bucket_name = "recipeats-test"
     file_name = f"{str(uuid.uuid4())}.jpg"
 
     resp = s3.Bucket(bucket_name).put_object(Key=file_name, Body=file)
