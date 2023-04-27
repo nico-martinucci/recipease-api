@@ -304,7 +304,7 @@ def replace_all_recipe_basics(recipe_id, description, meal_name, type_name, priv
         "private": recipe.private,
     }
 
-    return {"new_basics": serialized}
+    return {"newBasics": serialized}
 
 
 def replace_all_recipe_items(recipe_id, items):
@@ -327,7 +327,7 @@ def replace_all_recipe_items(recipe_id, items):
         "items": new_items
     }
 
-    return {"new_items": serialized}
+    return {"newItems": serialized}
 
 
 def replace_all_recipe_steps(recipe_id, steps):
@@ -350,7 +350,7 @@ def replace_all_recipe_steps(recipe_id, steps):
         "steps": new_steps
     }
 
-    return {"new_steps": serialized}
+    return {"newSteps": serialized}
 
 
 def replace_all_recipe_notes(recipe_id, notes, username):
@@ -370,4 +370,4 @@ def replace_all_recipe_notes(recipe_id, notes, username):
             note=note["note"]
         ))
 
-    return {"notes": new_notes}
+    return {"newNotes": new_notes}
