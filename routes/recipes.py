@@ -59,7 +59,8 @@ def add_recipe():
         type_name=request.json["typeName"],
         private=request.json["private"],
         items=request.json["items"],
-        steps=request.json["steps"]
+        steps=request.json["steps"],
+        forked_from=request.json.get("forkedFrom", -1)
     )
 
     return jsonify(new_recipe)

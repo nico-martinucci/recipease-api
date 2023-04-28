@@ -81,7 +81,7 @@ def get_recipe(recipe_id):
 
 
 def add_new_recipe(name, description, createdBy, meal_name, type_name, private,
-                   items, steps):
+                   forked_from, items, steps):
     """
     Adds a new recipe to the database with the provided information; Returns
     data about the new recipe.
@@ -93,7 +93,8 @@ def add_new_recipe(name, description, createdBy, meal_name, type_name, private,
         user_username=createdBy,
         meal_name=meal_name,
         type_name=type_name,
-        private=private
+        private=private,
+        forked_from=forked_from
     )
 
     db.session.add(new_recipe)
@@ -112,6 +113,7 @@ def add_new_recipe(name, description, createdBy, meal_name, type_name, private,
         "mealName": new_recipe.meal_name,
         "typeName": new_recipe.type_name,
         "private": new_recipe.private,
+        "forkedFrom": new_recipe.forked_from,
         "items": recipe_items,
         "steps": recipe_steps
     }
