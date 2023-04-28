@@ -37,54 +37,54 @@ other	test
 -- Data for Name: ingredients; Type: TABLE DATA; Schema: public; Owner: nicom
 --
 
-COPY public.ingredients (name, description, category, photo_url) FROM stdin;
-chicken, boneless/skinless thighs	test	meat	\N
-chicken, boneless/skinless breasts	test	meat	\N
-chicken, whole	test	meat	\N
-pork, chop	test	meat	\N
-pork, boneless shoulder	test	meat	\N
-beef, ribeye steak	test	meat	\N
-beef, chuck roast	test	meat	\N
-salmon, filets	test	seafood	\N
-salmon, whole	test	seafood	\N
-shrimp, peeled/deveined	test	seafood	\N
-crab	test	seafood	\N
-crab, picked meat	test	seafood	\N
-kale	test	vegetable	\N
-broccoli	test	vegetable	\N
-arugula	test	vegetable	\N
-romaine lettuce	test	vegetable	\N
-brussel sprouts	test	vegetable	\N
-tomatoes, cherry	test	vegetable	\N
-tomatoes, slicing	test	vegetable	\N
-apples, fuji	test	fruit	\N
-orange, navel	test	fruit	\N
-pear, bartlett	test	fruit	\N
-blueberries	test	fruit	\N
-strawberries	test	fruit	\N
-banana	test	fruit	\N
-milk, skim	test	dairy	\N
-milk, 2%	test	dairy	\N
-milk, whole	test	dairy	\N
-cheese, jack	test	dairy	\N
-cheese, gouda	test	dairy	\N
-eggs	test	dairy	\N
-heavy cream	test	dairy	\N
-bread	test	grain	\N
-rice, white long-grain	test	grain	\N
-rice, brown	test	grain	\N
-tortillas, corn	test	grain	\N
-tortillas, flour	test	grain	\N
-salt	test	spice	\N
-pepper	test	spice	\N
-paprika	test	spice	\N
-ginger, ground	test	spice	\N
-soy sauce	test	packaged	\N
-fish sauce	test	packaged	\N
-tomato, canned	test	packaged	\N
-tomato, paste	test	packaged	\N
-salsa	test	packaged	\N
-\.
+-- COPY public.ingredients (name, description, category, photo_url) FROM stdin;
+-- chicken, boneless/skinless thighs	test	meat	\N
+-- chicken, boneless/skinless breasts	test	meat	\N
+-- chicken, whole	test	meat	\N
+-- pork, chop	test	meat	\N
+-- pork, boneless shoulder	test	meat	\N
+-- beef, ribeye steak	test	meat	\N
+-- beef, chuck roast	test	meat	\N
+-- salmon, filets	test	seafood	\N
+-- salmon, whole	test	seafood	\N
+-- shrimp, peeled/deveined	test	seafood	\N
+-- crab	test	seafood	\N
+-- crab, picked meat	test	seafood	\N
+-- kale	test	vegetable	\N
+-- broccoli	test	vegetable	\N
+-- arugula	test	vegetable	\N
+-- romaine lettuce	test	vegetable	\N
+-- brussel sprouts	test	vegetable	\N
+-- tomatoes, cherry	test	vegetable	\N
+-- tomatoes, slicing	test	vegetable	\N
+-- apples, fuji	test	fruit	\N
+-- orange, navel	test	fruit	\N
+-- pear, bartlett	test	fruit	\N
+-- blueberries	test	fruit	\N
+-- strawberries	test	fruit	\N
+-- banana	test	fruit	\N
+-- milk, skim	test	dairy	\N
+-- milk, 2%	test	dairy	\N
+-- milk, whole	test	dairy	\N
+-- cheese, jack	test	dairy	\N
+-- cheese, gouda	test	dairy	\N
+-- eggs	test	dairy	\N
+-- heavy cream	test	dairy	\N
+-- bread	test	grain	\N
+-- rice, white long-grain	test	grain	\N
+-- rice, brown	test	grain	\N
+-- tortillas, corn	test	grain	\N
+-- tortillas, flour	test	grain	\N
+-- salt	test	spice	\N
+-- pepper	test	spice	\N
+-- paprika	test	spice	\N
+-- ginger, ground	test	spice	\N
+-- soy sauce	test	packaged	\N
+-- fish sauce	test	packaged	\N
+-- tomato, canned	test	packaged	\N
+-- tomato, paste	test	packaged	\N
+-- salsa	test	packaged	\N
+-- \.
 
 
 --
