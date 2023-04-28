@@ -72,12 +72,21 @@ def add_photo_to_recipe(recipe_id):
 
     photo_url = f.post_new_file(request.files["photo"])
 
+    print("is makeCover equal to string 'false'",
+          (request.form["makeCover"]).lower() == "false")
+
     new_photo = q.upload_new_recipe_photo(
         recipe_id=recipe_id,
         username=request.form["username"],
         photo_url=photo_url,
         caption=request.form["caption"]
     )
+
+    if request.form["makeCover"].lower() == "true":
+        q.update_recipe_cover_photo(
+            recipe_id=recipe_id,
+            photo_url=photo_url
+        )
 
     return jsonify(new_photo)
 

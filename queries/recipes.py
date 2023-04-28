@@ -404,3 +404,16 @@ def upload_new_recipe_photo(recipe_id, username, photo_url, caption):
     }
 
     return {"newPhoto": serialized}
+
+
+def update_recipe_cover_photo(recipe_id, photo_url):
+    """
+    Updates the given recipe's cover photo with the provided photoUrl. Doesn't
+    return anything.
+    """
+
+    recipe = Recipe.query.get(recipe_id)
+
+    recipe.photo_url = photo_url
+
+    db.session.commit()
