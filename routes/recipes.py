@@ -72,9 +72,6 @@ def add_photo_to_recipe(recipe_id):
 
     photo_url = f.post_new_file(request.files["photo"])
 
-    print("is makeCover equal to string 'false'",
-          (request.form["makeCover"]).lower() == "false")
-
     new_photo = q.upload_new_recipe_photo(
         recipe_id=recipe_id,
         username=request.form["username"],

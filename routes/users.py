@@ -83,6 +83,4 @@ def get_user_detail(username):
 
     user = q.get_user(username)
 
-    print(type(user))
-
     return jsonify(user)
