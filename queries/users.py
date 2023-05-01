@@ -1,6 +1,7 @@
 from models import User, db
 from flask_bcrypt import Bcrypt
 import helpers.tokens as token
+import queries.recipes as recipe_q
 
 bcrypt = Bcrypt()
 
@@ -153,3 +154,48 @@ def get_user(username):
     }
 
     return {"user": serialize_user}
+
+
+def add_new_user_favorite(username, recipe_id):
+    """
+    Adds the provided recipe as a favorite for the provided user; uses the
+    recipe method to determine existing interaction.
+    """
+
+    user_recipe_activity = recipe_q.check_user_recipe_activity(
+        recipe_id=recipe_id,
+        username=username
+    )
+
+    user_recipe_activity.is_starred = True
+    db.session.commit()
+
+    serialized = {
+        "username": user_recipe_activity.user_username,
+        "recipeId": user_recipe_activity.recipe_id,
+        "isStarred": user_recipe_activity.is_starred
+    }
+
+    return {"favorited": serialized}
+
+
+def remove_existing_user_favorite(username, recipe_id):
+    """
+    Removes an existing user favorite from the database.
+    """
+
+    user_recipe_activity = recipe_q.check_user_recipe_activity(
+        recipe_id=recipe_id,
+        username=username
+    )
+
+    user_recipe_activity.is_starred = False
+    db.session.commit()
+
+    serialized = {
+        "username": user_recipe_activity.user_username,
+        "recipeId": user_recipe_activity.recipe_id,
+        "isStarred": user_recipe_activity.is_starred
+    }
+
+    return {"unfavorited": serialized}
