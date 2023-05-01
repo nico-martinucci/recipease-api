@@ -84,3 +84,38 @@ def get_user_detail(username):
     user = q.get_user(username)
 
     return jsonify(user)
+
+
+@users.get("/<username>/favorites")
+def get_user_favorites(username):
+    """Gets a list of IDs of user's favorited recipes."""
+
+    favorited_recipes = q.get_list_of_users_favorited_recipes(
+        username=username
+    )
+
+    return jsonify(favorited_recipes)
+
+
+@users.post("/<username>/favorites")
+def post_user_favorite(username):
+    """Adds a new favorite for the provided user."""
+
+    favorited = q.add_new_user_favorite(
+        username=username,
+        recipe_id=request.json["recipeId"]
+    )
+
+    return jsonify(favorited)
+
+
+@users.delete("/<username>/favorites/<recipe_id>")
+def delete_user_favorite(username, recipe_id):
+    """Deletes an existing favorite for the provided user."""
+
+    unfavorited = q.remove_existing_user_favorite(
+        username=username,
+        recipe_id=recipe_id
+    )
+
+    return jsonify(unfavorited)
