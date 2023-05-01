@@ -1,4 +1,4 @@
-from models import User, db
+from models import User, UserRecipe, db
 from flask_bcrypt import Bcrypt
 import helpers.tokens as token
 import queries.recipes as recipe_q
@@ -154,6 +154,25 @@ def get_user(username):
     }
 
     return {"user": serialize_user}
+
+
+def get_list_of_users_favorited_recipes(username):
+    """
+    Gets and returns a list of recipe IDs that match the user's currently
+    favorited recipes.
+    """
+
+    user_favorited_recipes = (UserRecipe.query
+                              .filter(UserRecipe.user_username == username)
+                              .filter(UserRecipe.is_starred == True)
+                              )
+
+    serialized = [
+        activity.recipe_id
+        for activity in user_favorited_recipes
+    ]
+
+    return {"favoritedRecipes": serialized}
 
 
 def add_new_user_favorite(username, recipe_id):
