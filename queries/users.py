@@ -139,7 +139,6 @@ def get_user(username):
             "typeName": recipe.type_name,
             "createdBy": recipe.created_by.username,
             "rating": recipe.rating,
-            "favoritedRecipes": get_list_of_users_favorited_recipes(username=username).get("favoritedRecipes")
         }
         for recipe in user.recipes
     ]
@@ -151,7 +150,8 @@ def get_user(username):
         "photoUrl": user.photo_url,
         "bio": user.bio,
         "recipes": serialize_recipes,
-        "email": user.email
+        "email": user.email,
+        "favoritedRecipes": get_list_of_users_favorited_recipes(username=username).get("favoritedRecipes")
     }
 
     return {"user": serialize_user}
