@@ -138,7 +138,8 @@ def get_user(username):
             "mealName": recipe.meal_name,
             "typeName": recipe.type_name,
             "createdBy": recipe.created_by.username,
-            "rating": recipe.rating
+            "rating": recipe.rating,
+            "favoritedRecipes": get_list_of_users_favorited_recipes(username=username).get("favoritedRecipes")
         }
         for recipe in user.recipes
     ]
