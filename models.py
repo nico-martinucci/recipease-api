@@ -56,7 +56,7 @@ class RecipeItem(db.Model):
         nullable=False
     )
     order = db.Column(db.Integer, nullable=False)
-    amount = db.Column(db.Float, nullable=False)
+    amount = db.Column(db.Float)
     short_unit = db.Column(db.Text)
     ingredient = db.Column(
         db.Text,
@@ -159,7 +159,7 @@ class Ingredient(db.Model):
     __tablename__ = "ingredients"
 
     name = db.Column(db.Text, primary_key=True)
-    description = db.Column(db.Text, nullable=False)
+    description = db.Column(db.Text)
     category = db.Column(
         db.Text,
         db.ForeignKey("ingredient_categories.name"),
