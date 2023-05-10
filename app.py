@@ -77,6 +77,7 @@ admin.add_view(ModelView(RecipePhoto, db.session))
 
 connect_db(app)
 db.create_all()
+db.session.rollback()
 
 app.register_blueprint(recipes, url_prefix="/api/recipes")
 app.register_blueprint(users, url_prefix="/api/users")
