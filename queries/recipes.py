@@ -40,7 +40,8 @@ def get_recipe(recipe_id):
             "unit": item.short_unit,
             "ingredient": item.ingredient,
             "description": item.description,
-            "order": item.order
+            "order": item.order,
+            "subsection": item.subsection
         }
         for item in recipe.items
     ]
@@ -136,7 +137,8 @@ def add_recipe_items(recipe_id, items):
             amount=item["amount"],
             short_unit=item.get("unit", None),
             ingredient=item["ingredient"],
-            description=item.get("description", None)
+            description=item.get("description", None),
+            subsection=item.get("subsection", None)
         )
 
         db.session.add(new_item)
@@ -151,7 +153,8 @@ def add_recipe_items(recipe_id, items):
             "amount": item.amount,
             "unit": item.short_unit,
             "ingredient": item.ingredient,
-            "description": item.description
+            "description": item.description,
+            "subsection": item.subsection
         }
         for item in recipe_items
     ]

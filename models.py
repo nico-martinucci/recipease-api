@@ -64,6 +64,7 @@ class RecipeItem(db.Model):
         nullable=False
     )
     description = db.Column(db.Text)
+    subsection = db.Column(db.Text)
 
     recipe = db.relationship("Recipe", backref="items")
     ingredient_detail = db.relationship("Ingredient", backref="uses")
