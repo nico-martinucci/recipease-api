@@ -27,6 +27,11 @@ def add_new_ingredient(name, description, category):
     returns the info about the new ingredient.
     """
 
+    dupe_ingredient = Ingredient.query.get(name)
+
+    if dupe_ingredient:
+        return {"error": "This ingredient has already been added."}
+
     new_ingredient = Ingredient(
         name=name,
         description=description,
