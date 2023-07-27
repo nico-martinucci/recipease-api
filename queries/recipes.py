@@ -8,24 +8,29 @@ def get_all_recipes(filter):
     information.
     """
 
-    name_filter = "%{}%".format(filter)
-    recipes = Recipe.query.filter(Recipe.name.ilike(name_filter)).all()
+    try:
+        name_filter = "%{}%".format(filter)
+        recipes = Recipe.query.filter(Recipe.name.ilike(name_filter)).all()
 
-    serialized = [
-        {
-            "id": recipe.id,
-            "name": recipe.name,
-            "description": recipe.description,
-            "photoUrl": recipe.photo_url,
-            "mealName": recipe.meal_name,
-            "typeName": recipe.type_name,
-            "createdBy": recipe.created_by.username,
-            "rating": recipe.rating
-        }
-        for recipe in recipes
-    ]
+        serialized = [
+            {
+                "id": recipe.id,
+                "name": recipe.name,
+                "description": recipe.description,
+                "photoUrl": recipe.photo_url,
+                "mealName": recipe.meal_name,
+                "typeName": recipe.type_name,
+                "createdBy": recipe.created_by.username,
+                "rating": recipe.rating
+            }
+            for recipe in recipes
+        ]
 
-    return {"recipes": serialized}
+        return {"recipes": serialized}
+    except:
+        db.session.rollback()
+
+        return {"recipes": []}
 
 
 def get_recipe(recipe_id):
